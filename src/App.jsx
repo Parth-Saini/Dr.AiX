@@ -11,13 +11,13 @@ import {
   PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from "recharts";
 import {
-  Activity, Brain, Heart, Zap, Moon, Droplets, Monitor,
-  Smile, Flame, Clock, Target, TrendingUp, Bell, LogOut,
-  Plus, Trash2, Download, X, ChevronRight, CheckCircle,
-  AlertTriangle, BarChart2, Send, Home, MessageSquare,
-  FileText, Eye, Loader2, Globe, Edit3, Save, Coffee,
-  Wind, Shield, Pause, Play, RefreshCw, StopCircle,
-  ArrowUp, ArrowDown, Wifi, SunMedium, Sunset, Footprints
+  Activity, Brain, Heart, Moon, Droplets, Monitor,
+  Smile, Flame, Clock, Target, LogOut,
+  Plus, Trash2, X, CheckCircle,
+  BarChart2, Send, Home,
+  FileText, Eye, Loader2, Globe, Edit3, Save,
+  Shield, Play, RefreshCw, StopCircle,
+  Zap, Download
 } from "lucide-react";
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -47,12 +47,43 @@ a{color:var(--t);text-decoration:none}
 
 /* LAYOUT */
 .shell{display:flex;height:100vh;overflow:hidden;position:relative}
-.sidebar{width:var(--sw);min-width:var(--sw);height:100vh;background:rgba(5,5,15,.96);border-right:1px solid var(--bd);display:flex;flex-direction:column;padding:0 10px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow-y:auto;overflow-x:hidden;flex-shrink:0;z-index:80}
-.topbar{height:var(--hdr);background:rgba(5,5,15,.88);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 22px;gap:12px;flex-shrink:0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.sidebar{width:var(--sw);min-width:var(--sw);height:100vh;background:rgba(5,5,15,.96);border-right:1px solid var(--bd);display:flex;flex-direction:column;padding:0 10px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow-y:auto;overflow-x:hidden;flex-shrink:0;z-index:80;transition:transform .28s cubic-bezier(.22,1,.36,1)}
+.topbar{height:var(--hdr);background:rgba(5,5,15,.88);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .page-wrap{flex:1;overflow-y:auto;overflow-x:hidden}
 .page{padding:24px 28px;min-height:100%;animation:pgIn .32s cubic-bezier(.22,1,.36,1)}
-@media(max-width:860px){:root{--sw:58px}.nav-txt{display:none!important}.logo-txt{display:none!important}.page{padding:14px 16px}}
+
+/* ── TABLET ── */
+@media(max-width:860px){
+  :root{--sw:60px}
+  .nav-txt{display:none!important}
+  .logo-txt{display:none!important}
+  .page{padding:16px}
+}
+
+/* ── MOBILE (≤600px) — sidebar becomes bottom nav ── */
+@media(max-width:600px){
+  .shell{flex-direction:column}
+  .sidebar{
+    position:fixed;bottom:0;left:0;right:0;top:auto;
+    width:100%!important;min-width:100%!important;
+    height:64px;flex-direction:row;align-items:center;
+    padding:0 8px;border-right:none;border-top:1px solid var(--bd);
+    overflow:hidden;z-index:200
+  }
+  .sidebar-user-section{display:none!important}
+  .sidebar-cap{display:none!important}
+  .main{margin-bottom:64px}
+  .page{padding:14px 14px 20px}
+  .topbar{padding:0 14px}
+  .nav-txt{display:none!important}
+  .logo-txt{display:none!important}
+  .ni{flex-direction:column;gap:3px;padding:8px 6px;flex:1;justify-content:center;border-radius:10px;font-size:9px!important;min-width:0}
+  .ni svg{flex-shrink:0}
+  .ni-label-mobile{display:block!important;font-size:9px;font-family:var(--ff-h);font-weight:700;letter-spacing:.3px;color:inherit;text-align:center;white-space:nowrap}
+  .orb{display:none}
+}
+@media(min-width:601px){.ni-label-mobile{display:none!important}}
 
 /* GLASS CARDS */
 .glass{background:var(--s1);border:1px solid var(--bd);border-radius:16px;backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%)}
@@ -127,6 +158,30 @@ select.finput option{background:#0A0A1E;color:var(--tx)}
 .sk{background:linear-gradient(90deg,rgba(255,255,255,.032) 25%,rgba(255,255,255,.065) 50%,rgba(255,255,255,.032) 75%);background-size:600px 100%;animation:shimmer 1.5s infinite;border-radius:8px}
 .s1{animation:fadeUp .38s .04s both}.s2{animation:fadeUp .38s .08s both}.s3{animation:fadeUp .38s .12s both}
 .s4{animation:fadeUp .38s .16s both}.s5{animation:fadeUp .38s .20s both}.s6{animation:fadeUp .38s .24s both}
+
+/* Responsive grid helpers */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.grid-score{display:grid;grid-template-columns:260px 1fr;gap:16px}
+.grid-chart{display:grid;grid-template-columns:1.7fr 1fr;gap:16px}
+@media(max-width:860px){
+  .grid-3{grid-template-columns:1fr 1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-score{grid-template-columns:1fr}
+  .grid-chart{grid-template-columns:1fr}
+  .grid-2c{grid-template-columns:1fr!important}
+}
+@media(max-width:600px){
+  .grid-2{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-score{grid-template-columns:1fr}
+  .grid-chart{grid-template-columns:1fr}
+  .h1{font-size:22px!important}
+  .chat-ai,.chat-user{max-width:94%!important;font-size:13px!important}
+  .ai-grid{grid-template-columns:1fr!important}
+}
 `;
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -134,7 +189,7 @@ select.finput option{background:#0A0A1E;color:var(--tx)}
    Replace API_BASE with your deployed backend URL.
    All data syncs across devices via MongoDB Atlas.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const API_BASE = "https://your-backend.railway.app/api"; // ← set your backend
+const API_BASE = ""; // ← set your backend
 
 const api = {
   headers: (token) => ({ "Content-Type": "application/json", ...(token && { Authorization: `Bearer ${token}` }) }),
@@ -224,24 +279,27 @@ const api = {
     catch { return JSON.parse(localStorage.getItem("draix_chats") || "[]"); }
   },
 
-  /* LOCAL FALLBACK (offline/demo mode) */
+  /* LOCAL FALLBACK — localStorage-based auth (runs when backend is unreachable) */
   _localRegister(name, email, password, profile) {
     const users = JSON.parse(localStorage.getItem("draix_users") || "[]");
-    if (users.find(u => u.email === email)) return { error: "Email already registered" };
-    const user = { _id: Date.now().toString(), name, email, profile: profile || {} };
-    localStorage.setItem("draix_users", JSON.stringify([...users, { ...user, password }]));
+    if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+      return { error: "This email is already registered. Please sign in." };
+    }
+    const user = { _id: Date.now().toString(), name, email: email.toLowerCase(), profile: profile || {} };
+    // Store hashed-ish password (simple encode — real bcrypt is in backend)
+    localStorage.setItem("draix_users", JSON.stringify([...users, { ...user, _pw: btoa(password) }]));
     const token = btoa(JSON.stringify({ id: user._id, exp: Date.now() + 86400000 * 30 }));
     localStorage.setItem("draix_token", token);
     localStorage.setItem("draix_user", JSON.stringify(user));
     return { token, user };
   },
   _localLogin(email, password) {
-    // Demo mode — accept any credentials
-    if (!email || !password) return { error: "Please fill all fields" };
+    if (!email || !password) return { error: "Please fill all fields." };
     const users = JSON.parse(localStorage.getItem("draix_users") || "[]");
-    const found = users.find(u => u.email === email && u.password === password);
-    const user = found ? { _id: found._id, name: found.name, email: found.email, profile: found.profile || {} }
-      : { _id: "demo", name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1), email, profile: {} };
+    const found = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (!found) return { error: "No account found with this email. Please create an account first." };
+    if (found._pw !== btoa(password)) return { error: "Incorrect password. Please try again." };
+    const user = { _id: found._id, name: found.name, email: found.email, profile: found.profile || {} };
     const token = btoa(JSON.stringify({ id: user._id, exp: Date.now() + 86400000 * 30 }));
     localStorage.setItem("draix_token", token);
     localStorage.setItem("draix_user", JSON.stringify(user));
@@ -429,16 +487,18 @@ function calcWellnessScore(records = [], steps = 0, screenMs = 0) {
 }
 
 function genWeeklyData(records = []) {
+  // Only use real logged data — no random fallback
   return DAYS.map((day, i) => {
     const r = records[i] || {};
     return {
       day,
-      sleep: r.sleep ?? parseFloat((6.5 + Math.sin(i) * 0.9).toFixed(1)),
-      water: r.water ?? Math.round(1600 + Math.random() * 900),
-      mood: r.mood ?? Math.round(5 + Math.sin(i * 0.7) * 2),
-      calories: r.calories ?? Math.round(1700 + Math.random() * 700),
-      steps: r.steps ?? Math.round(5000 + Math.sin(i * 1.2) * 2500),
-      stress: r.stress ?? Math.round(3 + Math.random() * 4),
+      sleep: r.sleep || 0,
+      water: r.water || 0,
+      mood: r.mood || 0,
+      calories: r.calories || 0,
+      steps: r.steps || 0,
+      stress: r.stress || 0,
+      hasData: !!(r.sleep || r.water || r.mood || r.steps),
     };
   });
 }
@@ -537,88 +597,107 @@ function useWellnessAlerts(screenMs, addToast) {
 function AuthScreen({ onAuth }) {
   const [mode, setMode] = useState("login");
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ name: "", email: "parth@draix.ai", password: "wellness2025", age: "", gender: "prefer_not", goal: "general" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", age: "", gender: "prefer_not", goal: "general" });
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [showPw, setShowPw] = useState(false);
 
   const f = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
+  const validateEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
   const submit = async () => {
-    if (!form.email || !form.password) return setErr("Please fill all required fields.");
-    if (mode === "register" && !form.name) return setErr("Please enter your name.");
+    // Validation
+    if (!form.email.trim() || !form.password.trim()) return setErr("Email and password are required.");
+    if (!validateEmail(form.email)) return setErr("Please enter a valid email address.");
+    if (form.password.length < 6) return setErr("Password must be at least 6 characters.");
+    if (mode === "register" && !form.name.trim()) return setErr("Please enter your full name.");
     setErr(""); setLoading(true);
     try {
       const res = mode === "register"
-        ? await api.register(form.name, form.email, form.password, { age: form.age, gender: form.gender, goal: form.goal })
-        : await api.login(form.email, form.password);
+        ? await api.register(form.name.trim(), form.email.trim(), form.password, { age: form.age, gender: form.gender, goal: form.goal })
+        : await api.login(form.email.trim(), form.password);
       if (res.error) { setErr(res.error); setLoading(false); return; }
       onAuth(res.user, res.token);
-    } catch { setErr("Network error. Signing in with demo mode."); setLoading(false); onAuth({ name: form.email.split("@")[0], email: form.email, profile: {} }, "demo"); }
+    } catch {
+      // Backend unreachable — try local
+      const res = mode === "register"
+        ? api._localRegister(form.name.trim(), form.email.trim(), form.password, { age: form.age, gender: form.gender, goal: form.goal })
+        : api._localLogin(form.email.trim(), form.password);
+      if (res.error) { setErr(res.error); setLoading(false); return; }
+      onAuth(res.user, res.token);
+    }
     setLoading(false);
   };
 
   return (
-    <div className="dot-bg" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", position: "relative", overflow: "hidden" }}>
+    <div className="dot-bg" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", position: "relative", overflow: "hidden", padding: "20px" }}>
       <div className="orb" style={{ width: 560, height: 560, background: "rgba(0,245,200,.04)", top: -180, left: -100 }} />
       <div className="orb" style={{ width: 420, height: 420, background: "rgba(129,140,248,.04)", bottom: -100, right: -80, animationDelay: "9s" }} />
-      <div className="orb" style={{ width: 280, height: 280, background: "rgba(56,189,248,.03)", top: "35%", left: "52%", animationDelay: "17s" }} />
 
-      <div className="glass" style={{ width: 430, padding: "40px", position: "relative", zIndex: 1, animation: "fadeUp .45s ease" }}>
+      <div className="glass" style={{ width: "100%", maxWidth: 420, padding: "36px 32px", position: "relative", zIndex: 1, animation: "fadeUp .45s ease" }}>
         {/* Logo */}
-        <div style={{ textAlign: "center", marginBottom: 30 }}>
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={{
-            width: 54, height: 54, borderRadius: 16, margin: "0 auto 14px",
+            width: 52, height: 52, borderRadius: 15, margin: "0 auto 13px",
             background: "linear-gradient(135deg,#00F5C8,#38BDF8)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 6px 28px rgba(0,245,200,.32), 0 0 0 1px rgba(0,245,200,.2)"
+            boxShadow: "0 6px 28px rgba(0,245,200,.32)"
           }}>
-            <Heart size={26} color="#030820" />
+            <Heart size={25} color="#030820" />
           </div>
-          <h1 className="h1" style={{ fontSize: 28, marginBottom: 5 }}>
-            Dr.<span className="grad">AIX</span>
-          </h1>
-          <p style={{ fontSize: 13, color: "var(--tx2)", fontWeight: 400 }}>Where AI Meets Human Wellness</p>
+          <h1 className="h1" style={{ fontSize: 26, marginBottom: 4 }}>Dr.<span className="grad">AIX</span></h1>
+          <p style={{ fontSize: 13, color: "var(--tx2)" }}>Where AI Meets Human Wellness</p>
         </div>
 
         {/* Tab Toggle */}
-        <div style={{ display: "flex", background: "rgba(255,255,255,.04)", borderRadius: 11, padding: 3, marginBottom: 24 }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,.04)", borderRadius: 11, padding: 3, marginBottom: 22 }}>
           {["login", "register"].map(m => (
             <button key={m} onClick={() => { setMode(m); setErr(""); setStep(1); }} style={{
               flex: 1, padding: "8px", border: "none", borderRadius: 9, outline: "none",
               background: mode === m ? "var(--t10)" : "transparent",
               color: mode === m ? "var(--t)" : "var(--tx2)",
-              fontFamily: "Syne,sans-serif", fontWeight: 700, fontSize: 13.5, cursor: "pointer",
-              transition: "all .18s", letterSpacing: ".2px"
+              fontFamily: "Syne,sans-serif", fontWeight: 700, fontSize: 13, cursor: "pointer", transition: "all .18s"
             }}>{m === "login" ? "Sign In" : "Create Account"}</button>
           ))}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {mode === "register" && step === 1 && (
-            <div className="form-group">
-              <label className="flabel">Full Name</label>
-              <input className="finput" type="text" placeholder="Parth Sharma" value={form.name} onChange={e => f("name", e.target.value)} />
+            <div>
+              <label className="flabel">Full Name *</label>
+              <input className="finput" type="text" placeholder="e.g. pArth sAini " value={form.name} onChange={e => f("name", e.target.value)} autoComplete="name" />
             </div>
           )}
           {(mode === "login" || step === 1) && (
             <>
-              <div className="form-group">
-                <label className="flabel">Email Address</label>
-                <input className="finput" type="email" placeholder="you@example.com" value={form.email} onChange={e => f("email", e.target.value)} />
+              <div>
+                <label className="flabel">Email Address *</label>
+                <input className="finput" type="email" placeholder="you@example.com" value={form.email} onChange={e => f("email", e.target.value)} autoComplete="email" />
               </div>
-              <div className="form-group">
-                <label className="flabel">Password</label>
-                <input className="finput" type="password" placeholder="••••••••" value={form.password} onChange={e => f("password", e.target.value)} onKeyDown={e => e.key === "Enter" && (mode === "login" ? submit() : setStep(2))} />
+              <div>
+                <label className="flabel">Password * {mode === "register" && <span style={{ textTransform: "none", letterSpacing: 0, fontSize: 10 }}>(min 6 chars)</span>}</label>
+                <div style={{ position: "relative" }}>
+                  <input className="finput" type={showPw ? "text" : "password"} placeholder="••••••••" value={form.password}
+                    onChange={e => f("password", e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && (mode === "login" ? submit() : setStep(2))}
+                    autoComplete={mode === "login" ? "current-password" : "new-password"}
+                    style={{ paddingRight: 44 }} />
+                  <button onClick={() => setShowPw(s => !s)} style={{
+                    position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+                    background: "none", border: "none", cursor: "pointer", color: "var(--tx3)", padding: 0
+                  }}>{showPw ? <Eye size={15} /> : <Eye size={15} style={{ opacity: .5 }} />}</button>
+                </div>
               </div>
             </>
           )}
           {mode === "register" && step === 2 && (
             <>
-              <div className="form-group">
-                <label className="flabel">Age (optional)</label>
+              <div>
+                <label className="flabel">Age <span style={{ textTransform: "none", letterSpacing: 0, fontSize: 10 }}>(optional)</span></label>
                 <input className="finput" type="number" placeholder="25" min="13" max="100" value={form.age} onChange={e => f("age", e.target.value)} />
               </div>
-              <div className="form-group">
+              <div>
                 <label className="flabel">Gender</label>
                 <select className="finput" value={form.gender} onChange={e => f("gender", e.target.value)}>
                   <option value="prefer_not">Prefer not to say</option>
@@ -627,8 +706,8 @@ function AuthScreen({ onAuth }) {
                   <option value="non_binary">Non-binary</option>
                 </select>
               </div>
-              <div className="form-group">
-                <label className="flabel">Primary Wellness Goal</label>
+              <div>
+                <label className="flabel">Primary Goal</label>
                 <select className="finput" value={form.goal} onChange={e => f("goal", e.target.value)}>
                   <option value="general">General Wellness</option>
                   <option value="fitness">Fitness & Activity</option>
@@ -642,16 +721,40 @@ function AuthScreen({ onAuth }) {
           )}
         </div>
 
-        {err && <div style={{ marginTop: 10, padding: "9px 13px", background: "var(--r10)", border: "1px solid rgba(248,113,113,.2)", borderRadius: 10, fontSize: 12.5, color: "var(--r)" }}>{err}</div>}
+        {err && <div style={{ marginTop: 12, padding: "10px 13px", background: "var(--r10)", border: "1px solid rgba(248,113,113,.2)", borderRadius: 10, fontSize: 12.5, color: "var(--r)", lineHeight: 1.5 }}>{err}</div>}
 
-        <button className="btn-p" style={{ width: "100%", justifyContent: "center", marginTop: 20, padding: "12px 20px", fontSize: 14 }}
-          onClick={mode === "login" ? submit : step === 1 ? () => { if (!form.name || !form.email || !form.password) return setErr("Please fill all fields."); setErr(""); setStep(2); } : submit}
+        {/* Step indicator for register */}
+        {mode === "register" && (
+          <div style={{ display: "flex", gap: 6, margin: "14px 0 0", justifyContent: "center" }}>
+            {[1, 2].map(s => (
+              <div key={s} style={{ width: s === step ? 20 : 7, height: 7, borderRadius: 4, background: s === step ? "var(--t)" : "rgba(255,255,255,.12)", transition: "all .3s" }} />
+            ))}
+          </div>
+        )}
+
+        <button className="btn-p" style={{ width: "100%", justifyContent: "center", marginTop: 18, padding: "12px 20px", fontSize: 14 }}
+          onClick={mode === "login" ? submit : step === 1
+            ? () => { if (!form.name.trim() || !form.email.trim() || !form.password.trim()) return setErr("Please fill all required fields."); if (form.password.length < 6) return setErr("Password must be at least 6 characters."); setErr(""); setStep(2); }
+            : submit}
           disabled={loading}>
-          {loading ? <><Loader2 size={15} style={{ animation: "spin 1s linear infinite" }} />Signing in…</> :
-            mode === "login" ? "Sign In to Dr.AIX" : step === 1 ? "Continue →" : "Create Account"}
+          {loading
+            ? <><Loader2 size={15} style={{ animation: "spin 1s linear infinite" }} />{mode === "login" ? "Signing in…" : "Creating account…"}</>
+            : mode === "login" ? "Sign In" : step === 1 ? "Next →" : "Create Account"}
         </button>
 
-        {mode === "login" && <p style={{ fontSize: 12, color: "var(--tx3)", textAlign: "center", marginTop: 14, lineHeight: 1.5 }}>✨ Demo credentials pre-filled — just tap Sign In</p>}
+        {mode === "login" && (
+          <p style={{ fontSize: 12, color: "var(--tx3)", textAlign: "center", marginTop: 14, lineHeight: 1.6 }}>
+            Don't have an account?{" "}
+            <span style={{ color: "var(--t)", cursor: "pointer", fontWeight: 600 }} onClick={() => { setMode("register"); setErr(""); setStep(1); }}>
+              Create one free →
+            </span>
+          </p>
+        )}
+        {mode === "register" && step === 2 && (
+          <button className="btn-s" style={{ width: "100%", justifyContent: "center", marginTop: 10, fontSize: 13 }} onClick={() => setStep(1)}>
+            ← Back
+          </button>
+        )}
       </div>
     </div>
   );
@@ -672,27 +775,32 @@ const NAV_ITEMS = [
 function Sidebar({ page, setPage, user, onLogout }) {
   return (
     <div className="sidebar">
+      {/* Logo — hidden in mobile bottom-nav mode */}
       <div style={{ padding: "16px 3px 18px", display: "flex", alignItems: "center", gap: 9 }}>
         <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg,#00F5C8,#38BDF8)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,245,200,.28)", flexShrink: 0 }}>
           <Heart size={17} color="#030820" />
         </div>
         <div className="logo-txt">
-          <div className="h3" style={{ fontSize: 16, fontWeight: 800 }}>Dr.<span className="grad">AIX</span></div>
+          <div style={{ fontFamily: "Syne,sans-serif", fontSize: 16, fontWeight: 800 }}>Dr.<span className="grad">AIX</span></div>
           <div style={{ fontSize: 9, color: "var(--tx3)", letterSpacing: "1.2px", fontFamily: "Syne,sans-serif", fontWeight: 700 }}>WELLNESS AI</div>
         </div>
       </div>
 
-      <div className="cap" style={{ padding: "4px 3px", marginBottom: 6 }}>Navigation</div>
+      <div className="cap sidebar-cap" style={{ padding: "4px 3px", marginBottom: 6 }}>Navigation</div>
+
       <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
         {NAV_ITEMS.map(n => (
           <div key={n.id} className={`ni ${page === n.id ? "act" : ""}`} onClick={() => setPage(n.id)}>
             <n.icon size={16} style={{ flexShrink: 0 }} />
             <span className="nav-txt">{n.label}</span>
+            {/* Mobile bottom-nav label */}
+            <span className="ni-label-mobile">{n.label}</span>
           </div>
         ))}
       </nav>
 
-      <div style={{ borderTop: "1px solid var(--bd)", paddingTop: 12, marginTop: 8 }}>
+      {/* User section — hidden on mobile bottom nav */}
+      <div className="sidebar-user-section" style={{ borderTop: "1px solid var(--bd)", paddingTop: 12, marginTop: 8 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 10, padding: "0 3px" }}>
           <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg,var(--v),#C4B5FD)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
             {(user?.name || "U")[0].toUpperCase()}
@@ -710,24 +818,30 @@ function Sidebar({ page, setPage, user, onLogout }) {
   );
 }
 
-function TopBar({ user, page, screenMs, steps, score, addToast }) {
+function TopBar({ user, page, screenMs, steps, score, addToast, onLogout }) {
   const [now, setNow] = useState(new Date());
   useEffect(() => { const t = setInterval(() => setNow(new Date()), 60000); return () => clearInterval(t); }, []);
   const titles = { dashboard: "Dashboard", health: "Health Tracker", steps: "Step Tracker", screen: "Screen Time", ai: "AI Assistant", reports: "Reports" };
   return (
     <div className="topbar">
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 14.5, fontFamily: "Syne,sans-serif", fontWeight: 700 }}>{titles[page] || ""}</div>
-        <div style={{ fontSize: 11, color: "var(--tx3)" }}>{now.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" })}</div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 14.5, fontFamily: "Syne,sans-serif", fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{titles[page] || ""}</div>
+        <div style={{ fontSize: 11, color: "var(--tx3)" }}>{now.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })}</div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
         <div style={{ background: "var(--t10)", border: "1px solid rgba(0,245,200,.18)", borderRadius: 8, padding: "5px 10px", fontSize: 11.5, fontFamily: "Syne,sans-serif", fontWeight: 700, color: "var(--t)", display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--t)", animation: "pulse 2s infinite" }} />
-          Score {score}
+          {score > 0 ? score : "—"}
         </div>
-        <button className="ib" onClick={() => addToast({ icon: "💡", title: "Wellness Tip", msg: "Remember to hydrate! Aim for 2500ml of water today.", duration: 5000 })} title="Wellness Tip">
-          <Bell size={15} />
-        </button>
+        {/* Mobile: show user initial + logout */}
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <div style={{ width: 30, height: 30, borderRadius: "50%", background: "linear-gradient(135deg,var(--v),#C4B5FD)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", flexShrink: 0, cursor: "default" }}>
+            {(user?.name || "U")[0].toUpperCase()}
+          </div>
+          <button className="ib" onClick={onLogout} title="Sign Out" style={{ flexShrink: 0 }}>
+            <LogOut size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -769,77 +883,88 @@ function ScoreRing({ score, size = 170 }) {
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    DASHBOARD PAGE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function DashboardPage({ user, records, steps, screenMs, score, weeklyData, addToast }) {
+function DashboardPage({ user, records, steps, screenMs, score, weeklyData, addToast, setPage }) {
   const today = records[records.length - 1] || {};
-  const screenHrs = (screenMs / 3600000).toFixed(1);
+  const hasData = records.length > 0 || steps > 0;
+  const totalSeconds = Math.floor(screenMs / 1000);
+const hours = Math.floor(totalSeconds / 3600);
+const minutes = Math.floor((totalSeconds % 3600) / 60);
+const seconds = totalSeconds % 60;
+
+const screenHrs = `${hours}h ${minutes}m ${seconds}s`;
   const metrics = [
-    { icon: Activity, label: "Steps Today", val: steps.toLocaleString(), unit: "steps", color: "#00F5C8", sub: `${((steps || 0) * 0.000762).toFixed(2)} km`, prog: Math.min(100, (steps / 10000) * 100) },
-    { icon: Moon, label: "Last Sleep", val: Number(today.sleep || 0).toFixed(1), unit: "hrs", color: "#818CF8", sub: today.sleep >= 7 ? "Optimal range ✓" : "Below 7h target", prog: Math.min(100, ((today.sleep || 0) / 9) * 100) },
-    { icon: Droplets, label: "Hydration", val: (today.water || 0).toLocaleString(), unit: "ml", color: "#38BDF8", sub: `${Math.round(((today.water || 0) / 2500) * 100)}% of 2500ml goal`, prog: Math.min(100, ((today.water || 0) / 2500) * 100) },
-    { icon: Smile, label: "Mood", val: `${today.mood || 0}/10`, color: "#FBBF24", sub: (today.mood || 0) >= 7 ? "Feeling great! 😊" : "Try a short walk 🚶", prog: ((today.mood || 0) / 10) * 100 },
-    { icon: Monitor, label: "Screen Time", val: screenHrs, unit: "hrs", color: parseFloat(screenHrs) > 5 ? "#F87171" : "#34D399", sub: parseFloat(screenHrs) > 5 ? "⚠ High — take a break" : "Healthy usage today", prog: Math.min(100, (parseFloat(screenHrs) / 8) * 100) },
-    { icon: Flame, label: "Calories", val: (today.calories || 0).toLocaleString(), unit: "kcal", color: "#FB923C", sub: "Logged today", prog: Math.min(100, ((today.calories || 0) / 2200) * 100) },
+    { icon: Activity, label: "Steps Today", val: steps > 0 ? steps.toLocaleString() : "—", unit: steps > 0 ? "steps" : "", color: "#00F5C8", sub: steps > 0 ? `${((steps) * 0.000762).toFixed(2)} km · ${Math.round(steps * 0.04)} kcal` : "Start step tracker to count", prog: Math.min(100, (steps / 10000) * 100) },
+    { icon: Moon, label: "Sleep", val: today.sleep ? Number(today.sleep || 0).toFixed(1) : "—", unit: today.sleep ? "hrs" : "", color: "#818CF8", sub: today.sleep ? (today.sleep >= 7 ? "Optimal range ✓" : "Below 7h target") : "Log your sleep", prog: Math.min(100, ((today.sleep || 0) / 9) * 100) },
+    { icon: Droplets, label: "Hydration", val: today.water ? today.water.toLocaleString() : "—", unit: today.water ? "ml" : "", color: "#38BDF8", sub: today.water ? `${Math.round((today.water / 2500) * 100)}% of 2500ml goal` : "Log water intake", prog: Math.min(100, ((today.water || 0) / 2500) * 100) },
+    { icon: Smile, label: "Mood", val: today.mood ? `${today.mood}/10` : "—", color: "#FBBF24", sub: today.mood ? (today.mood >= 7 ? "Feeling great 😊" : today.mood >= 4 ? "Okay 🙂" : "Low — try a short walk 🚶") : "Log your mood", prog: ((today.mood || 0) / 10) * 100 },
+    { icon: Monitor, label: "Screen Time", val: screenHrs, unit: "hrs", color: parseFloat(screenHrs) > 5 ? "#F87171" : "#34D399", sub: parseFloat(screenHrs) > 5 ? "⚠ High — take a break" : "Healthy usage", prog: Math.min(100, (parseFloat(screenHrs) / 8) * 100) },
+    { icon: Flame, label: "Calories", val: today.calories ? today.calories.toLocaleString() : "—", unit: today.calories ? "kcal" : "", color: "#FB923C", sub: today.calories ? "Logged today" : "Log your meals", prog: Math.min(100, ((today.calories || 0) / 2200) * 100) },
   ];
+
+  const hasChartData = weeklyData.some(d => d.hasData);
   const normalized = weeklyData.map(d => ({
     day: d.day,
-    Sleep: Math.round((d.sleep / 9) * 100),
-    Water: Math.round((d.water / 2500) * 100),
-    Mood: Math.round((d.mood / 10) * 100),
-    Steps: Math.round((d.steps / 10000) * 100),
+    Sleep: d.sleep ? Math.round((d.sleep / 9) * 100) : null,
+    Water: d.water ? Math.round((d.water / 2500) * 100) : null,
+    Mood: d.mood ? Math.round((d.mood / 10) * 100) : null,
+    Steps: d.steps ? Math.round((d.steps / 10000) * 100) : null,
   }));
-  const HEATMAP = Array.from({ length: 56 }, (_, i) => ({
-    v: Math.max(0, Math.min(1, 0.3 + Math.sin(i * 0.4) * 0.35 + Math.random() * 0.35))
-  }));
+
   return (
     <div className="page">
       {/* Greeting */}
-      <div className="s1" style={{ marginBottom: 22 }}>
-        <h1 className="h1" style={{ fontSize: 28, marginBottom: 5 }}>{getGreeting(user?.name?.split(" ")[0])}</h1>
-        <p style={{ color: "var(--tx2)", fontSize: 13.5 }}>Here's your wellness overview for today. Keep it up! 💪</p>
+      <div className="s1" style={{ marginBottom: 20 }}>
+        <h1 className="h1" style={{ marginBottom: 5 }}>{getGreeting(user?.name?.split(" ")[0])}</h1>
+        <p style={{ color: "var(--tx2)", fontSize: 13.5 }}>
+          {hasData ? "Here's your wellness overview for today." : "Welcome! Start logging your health data to see insights."}
+        </p>
       </div>
 
       {/* Score + Metrics */}
-      <div className="s2" style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: 16, marginBottom: 16 }}>
-        <div className="card card-t" style={{ padding: "24px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+      <div className="s2 grid-score" style={{ marginBottom: 16 }}>
+        <div className="card card-t" style={{ padding: "24px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
           <ScoreRing score={score} />
-          <div style={{ width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-            {[{ l: "7-Day Streak 🔥", v: "7", c: "var(--a)" }, { l: "Rank", v: score >= 75 ? "A+" : score >= 50 ? "B" : "C", c: "var(--t)" }].map(s => (
-              <div key={s.l} style={{ textAlign: "center", background: "rgba(255,255,255,.03)", borderRadius: 10, padding: "10px 6px", border: "1px solid var(--bd)" }}>
-                <div className="mono" style={{ fontSize: 20, fontWeight: 700, color: s.c }}>{s.v}</div>
-                <div style={{ fontSize: 10, color: "var(--tx3)", fontFamily: "Syne,sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".5px", marginTop: 2 }}>{s.l}</div>
-              </div>
-            ))}
+          <div style={{ width: "100%", background: "rgba(255,255,255,.03)", borderRadius: 11, padding: "12px", border: "1px solid var(--bd)", textAlign: "center" }}>
+            <div style={{ fontSize: 11, color: "var(--tx3)", fontFamily: "Syne,sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".6px", marginBottom: 4 }}>Records Logged</div>
+            <div className="mono" style={{ fontSize: 22, fontWeight: 700, color: "var(--t)" }}>{records.length}</div>
           </div>
-          <button className="btn-p" style={{ width: "100%", justifyContent: "center", fontSize: 12.5, padding: "9px" }} onClick={() => addToast({ icon: "🧠", title: "AI Insight", msg: `Your wellness score is ${score}/100. ${score >= 70 ? "You're doing great! Keep up your sleep schedule." : "Try improving sleep and hydration today."}`, duration: 7000 })}>
-            <Brain size={13} /> Get AI Insight
+          <button className="btn-p" style={{ width: "100%", justifyContent: "center", fontSize: 12.5, padding: "9px" }}
+            onClick={() => addToast({ icon: "🧠", title: "AI Insight", msg: score > 0 ? `Your wellness score is ${score}/100. ${score >= 70 ? "Great work! Keep up the consistency." : "Log more health data today to improve your score."}` : "Start logging your health metrics to get a personalized AI wellness score!", duration: 7000 })}>
+            <Brain size={13} /> AI Insight
           </button>
+          {!hasData && (
+            <button className="btn-s" style={{ width: "100%", justifyContent: "center", fontSize: 12.5, padding: "9px" }} onClick={() => setPage("health")}>
+              <Plus size={13} /> Log Health Data
+            </button>
+          )}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+
+        <div className="grid-3" style={{ alignContent: "start" }}>
           {metrics.map((m, i) => (
-            <div key={m.label} className={`card s${i + 1}`} style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 10 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 8, background: `${m.color}15`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div key={m.label} className={`card s${i + 1}`} style={{ padding: "15px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 9 }}>
+                <div style={{ width: 27, height: 27, borderRadius: 8, background: `${m.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <m.icon size={13} color={m.color} />
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--tx2)", textTransform: "uppercase", letterSpacing: ".7px", fontFamily: "Syne,sans-serif" }}>{m.label}</span>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: "var(--tx2)", textTransform: "uppercase", letterSpacing: ".6px", fontFamily: "Syne,sans-serif" }}>{m.label}</span>
               </div>
-              <div style={{ marginBottom: 5 }}>
-                <span className="mono" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1 }}>{m.val}</span>
+              <div style={{ marginBottom: 4 }}>
+                <span className="mono" style={{ fontSize: 21, fontWeight: 700, lineHeight: 1, color: m.val === "—" ? "var(--tx3)" : "var(--tx)" }}>{m.val}</span>
                 {m.unit && <span style={{ fontSize: 12, color: "var(--tx2)", marginLeft: 4 }}>{m.unit}</span>}
               </div>
-              <div style={{ fontSize: 11.5, color: "var(--tx3)", marginBottom: 8 }}>{m.sub}</div>
-              <div className="pbar"><div className="pbar-f" style={{ width: `${m.prog}%`, background: `linear-gradient(90deg,${m.color}70,${m.color})` }} /></div>
+              <div style={{ fontSize: 11, color: "var(--tx3)", marginBottom: 7, lineHeight: 1.4 }}>{m.sub}</div>
+              {m.prog > 0 && <div className="pbar"><div className="pbar-f" style={{ width: `${m.prog}%`, background: `linear-gradient(90deg,${m.color}70,${m.color})` }} /></div>}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Charts Row */}
-      <div className="s3" style={{ display: "grid", gridTemplateColumns: "1.7fr 1fr", gap: 16, marginBottom: 16 }}>
-        <div className="card" style={{ padding: "20px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+      {/* Weekly Chart — only if real data exists */}
+      {hasChartData ? (
+        <div className="s3 card" style={{ padding: "20px", marginBottom: 16 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
             <div className="h3">Weekly Wellness Trends</div>
-            <div style={{ display: "flex", gap: 10 }}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {[["Sleep", "#818CF8"], ["Water", "#38BDF8"], ["Mood", "#FBBF24"], ["Steps", "#00F5C8"]].map(([l, c]) => (
                 <div key={l} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "var(--tx2)" }}>
                   <div style={{ width: 7, height: 7, borderRadius: "50%", background: c }} />{l}
@@ -852,66 +977,60 @@ function DashboardPage({ user, records, steps, screenMs, score, weeklyData, addT
               <defs>
                 {[["Sleep", "#818CF8"], ["Water", "#38BDF8"], ["Mood", "#FBBF24"], ["Steps", "#00F5C8"]].map(([k, c]) => (
                   <linearGradient key={k} id={`g${k}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={c} stopOpacity={.14} />
+                    <stop offset="5%" stopColor={c} stopOpacity={.15} />
                     <stop offset="95%" stopColor={c} stopOpacity={0} />
                   </linearGradient>
                 ))}
               </defs>
-              <XAxis dataKey="day" tick={{ fill: "rgba(221,230,255,.4)", fontSize: 11, fontFamily: "DM Sans" }} axisLine={false} tickLine={false} />
+              <XAxis dataKey="day" tick={{ fill: "rgba(221,230,255,.4)", fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={false} axisLine={false} tickLine={false} domain={[0, 110]} />
-              <Tooltip content={<CustomTip />} formatter={(v, n) => [`${v}%`, n]} />
+              <Tooltip content={<CustomTip />} formatter={(v, n) => [v != null ? `${v}%` : "No data", n]} />
               {["Sleep", "Water", "Mood", "Steps"].map((k, i) => {
                 const c = ["#818CF8", "#38BDF8", "#FBBF24", "#00F5C8"][i];
-                return <Area key={k} type="monotone" dataKey={k} stroke={c} strokeWidth={2} fill={`url(#g${k})`} dot={false} />;
+                return <Area key={k} type="monotone" dataKey={k} stroke={c} strokeWidth={2} fill={`url(#g${k})`} dot={{ fill: c, r: 3, strokeWidth: 0 }} connectNulls={false} />;
               })}
             </AreaChart>
           </ResponsiveContainer>
         </div>
-        <div className="card" style={{ padding: "20px" }}>
-          <div className="h3" style={{ marginBottom: 14 }}>Activity Heatmap</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-            {DAYS.map((d, row) => (
-              <div key={d} style={{ display: "flex", gap: 5, alignItems: "center" }}>
-                <span style={{ fontSize: 10, color: "var(--tx3)", width: 24, flexShrink: 0, fontFamily: "Syne,sans-serif" }}>{d}</span>
-                <div style={{ display: "flex", gap: 4, flex: 1 }}>
-                  {Array.from({ length: 8 }, (_, col) => {
-                    const v = HEATMAP[row * 8 + col].v;
-                    return <div key={col} style={{ flex: 1, height: 16, borderRadius: 4, background: `rgba(0,245,200,${v < .2 ? .07 : v < .45 ? .22 : v < .7 ? .5 : .85})`, transition: "all .2s", cursor: "pointer" }} />;
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 10, fontSize: 10.5, color: "var(--tx3)" }}>
-            <span>Less</span>
-            {[.07, .22, .5, .85].map((o, i) => <div key={i} style={{ width: 13, height: 13, borderRadius: 3, background: `rgba(0,245,200,${o})` }} />)}
-            <span>More</span>
-          </div>
+      ) : (
+        <div className="s3 card" style={{ padding: "36px 24px", marginBottom: 16, textAlign: "center", border: "1px dashed var(--bd2)" }}>
+          <BarChart2 size={36} style={{ margin: "0 auto 12px", display: "block", color: "var(--tx3)" }} />
+          <div className="h3" style={{ color: "var(--tx2)", marginBottom: 8 }}>No chart data yet</div>
+          <p style={{ fontSize: 13, color: "var(--tx3)", lineHeight: 1.6, maxWidth: 340, margin: "0 auto 16px" }}>
+            Log at least one health entry to see your weekly wellness trends chart.
+          </p>
+          <button className="btn-p" style={{ margin: "0 auto", display: "inline-flex" }} onClick={() => setPage("health")}>
+            <Plus size={14} /> Log First Entry
+          </button>
         </div>
-      </div>
+      )}
 
-      {/* Quick Stats */}
-      <div className="s4" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}>
-        {[
-          { l: "Avg Sleep (7d)", v: `${(weeklyData.reduce((a, d) => a + d.sleep, 0) / 7).toFixed(1)}h`, c: "#818CF8", icon: Moon },
-          { l: "Total Steps (7d)", v: weeklyData.reduce((a, d) => a + d.steps, 0).toLocaleString(), c: "#00F5C8", icon: Activity },
-          { l: "Avg Hydration", v: `${Math.round(weeklyData.reduce((a, d) => a + d.water, 0) / 7).toLocaleString()}ml`, c: "#38BDF8", icon: Droplets },
-          { l: "Best Mood Day", v: DAYS[weeklyData.indexOf(weeklyData.reduce((a, d) => a.mood > d.mood ? a : d))], c: "#FBBF24", icon: Smile },
-        ].map(s => (
-          <div key={s.l} className="card" style={{ padding: "14px 16px", display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: `${s.c}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <s.icon size={16} color={s.c} />
+      {/* Summary stats row — only real data */}
+      {hasData && (
+        <div className="s4 grid-4">
+          {[
+            { l: "Avg Sleep (week)", v: records.length ? `${(records.reduce((a, r) => a + (r.sleep || 0), 0) / records.length).toFixed(1)}h` : "—", c: "#818CF8", icon: Moon },
+            { l: "Total Steps", v: steps > 0 ? steps.toLocaleString() : "—", c: "#00F5C8", icon: Activity },
+            { l: "Avg Hydration", v: records.length ? `${Math.round(records.reduce((a, r) => a + (r.water || 0), 0) / records.length)}ml` : "—", c: "#38BDF8", icon: Droplets },
+            { l: "Screen Time", v: `${screenHrs}h`, c: parseFloat(screenHrs) > 5 ? "var(--r)" : "var(--g)", icon: Monitor },
+          ].map(s => (
+            <div key={s.l} className="card" style={{ padding: "13px 14px", display: "flex", alignItems: "center", gap: 11 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 9, background: `${s.c}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <s.icon size={15} color={s.c} />
+              </div>
+              <div>
+                <div style={{ fontSize: 10.5, color: "var(--tx3)", fontFamily: "Syne,sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".4px", marginBottom: 2 }}>{s.l}</div>
+                <div className="mono" style={{ fontSize: 16, fontWeight: 700, color: s.c }}>{s.v}</div>
+              </div>
             </div>
-            <div>
-              <div style={{ fontSize: 11, color: "var(--tx3)", fontFamily: "Syne,sans-serif", fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", marginBottom: 2 }}>{s.l}</div>
-              <div className="mono" style={{ fontSize: 17, fontWeight: 700, color: s.c }}>{s.v}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
+
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    HEALTH TRACKER PAGE
@@ -961,7 +1080,7 @@ function HealthTrackerPage({ records, onAdd, onUpdate, onDelete, token }) {
       </div>
 
       {tab === "log" && (
-        <div className="s2" style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 18, alignItems: "start" }}>
+        <div className="s2 grid-2c" style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: 18, alignItems: "start" }}>
           <div className="card" style={{ padding: "24px" }}>
             <div className="h3" style={{ marginBottom: 18 }}>{editId ? "✏️ Editing Record" : "Log Today's Metrics"}</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
@@ -1304,9 +1423,21 @@ function ScreenTimePage({ screenTime }) {
   const burnout = hours > 6 ? "High" : hours > 4 ? "Moderate" : "Low";
   const burnoutColor = { High: "var(--r)", Moderate: "var(--a)", Low: "var(--g)" }[burnout];
 
-  const hourlyUsage = useMemo(() => Array.from({ length: 24 }, (_, i) => ({
-    h: `${i}`, mins: i >= 8 && i <= 22 ? Math.floor((1 - Math.abs(i - 14) / 7) * 50 * (0.5 + Math.random() * 0.8)) : 0
-  })), []);
+  const hourlyUsage = useMemo(() => {
+    const rng = (seed) => {
+      let t = seed + 0x6D2B79F5;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    return Array.from({ length: 24 }, (_, i) => {
+      const r = rng(i + 14);
+      const mins = i >= 8 && i <= 22
+        ? Math.floor((1 - Math.abs(i - 14) / 7) * 50 * (0.5 + r * 0.8))
+        : 0;
+      return { h: `${i}`, mins };
+    });
+  }, []);
 
   const breakdown = [
     { type: "Deep Focus", pct: 38, color: "#00F5C8" }, { type: "Communication", pct: 22, color: "#818CF8" },
@@ -1511,11 +1642,29 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
   const [loading, setLoading] = useState(false);
   // showPrompts: visible until user sends first message, then permanently hidden
   const [showPrompts, setShowPrompts] = useState(true);
-  // sessionLang: null until first user message detected, then locked for the session
-  const [sessionLang, setSessionLang] = useState(null);
-  const [followUpTimer, setFollowUpTimer] = useState(null);
-  const chatRef = useRef(null);
-  const today = records[records.length - 1] || {};
+
+// sessionLang: null until first user message detected, then locked for the session
+const [sessionLang, setSessionLang] = useState(null);
+
+const [followUpTimer, setFollowUpTimer] = useState(null);
+
+const chatRef = useRef(null);
+const bottomRef = useRef(null);
+
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end"
+      });
+    }
+  }, 150);
+
+  return () => clearTimeout(timeout);
+}, [messages, loading]);
+
+const today = records[records.length - 1] || {};
 
   const LANG_LABELS = {
     en: "English", hi: "हिंदी", hinglish: "Hinglish",
@@ -1534,8 +1683,15 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
   }, []);
 
   useEffect(() => {
-    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-  }, [messages, loading]);
+  if (chatRef.current) {
+    setTimeout(() => {
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }, 100);
+  }
+}, [messages, loading]);
 
   // Follow-up system
   const scheduleFollowUp = useCallback((concern) => {
@@ -1589,18 +1745,26 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
       const sysPrompt = buildSystemPrompt(user, records, steps, screenMs, score, currentLang);
       const history = newMessages.slice(-12).map(m => ({ role: m.role === "ai" ? "assistant" : "user", content: m.content }));
 
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: sysPrompt,
-          messages: history
-        })
-      });
-      const data = await res.json();
-      const reply = data.content?.find(b => b.type === "text")?.text || "I couldn't process that. Please try again 🙏";
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_OPENROUTER_API_KEY"
+  },
+  body: JSON.stringify({
+    model: "openai/gpt-3.5-turbo",
+    messages: history.map(m => ({
+      role: m.role === "ai" ? "assistant" : "user",
+      content: m.content
+    }))
+  })
+});
+
+const data = await res.json();
+
+const reply =
+  data.choices?.[0]?.message?.content ||
+  "Sorry, I couldn't process that.";
       setMessages(m => [...m, { role: "ai", content: reply, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }]);
 
       // Save chat to MongoDB via API
@@ -1628,7 +1792,7 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
         <p style={{ color: "var(--tx2)", fontSize: 13.5, marginTop: 5 }}>Multilingual wellness AI · Powered by Claude · 8 languages supported</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: 18, height: "calc(100vh - 190px)", maxHeight: 680 }}>
+      <div className="ai-grid" style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: 18, height: "calc(100vh - 190px)", maxHeight: 680 }}>
         {/* Chat */}
         <div className="s2 card" style={{ display: "flex", flexDirection: "column" }}>
           {/* Chat header */}
@@ -1669,36 +1833,162 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
           </div>
 
           {/* Messages */}
-          <div ref={chatRef} style={{ flex: 1, overflowY: "auto", padding: "16px", display: "flex", flexDirection: "column", gap: 2 }}>
-            {messages.map((m, i) => (
-              <div key={i} style={{ animation: "msgIn .25s ease", marginBottom: 12, display: "flex", flexDirection: m.role === "user" ? "row-reverse" : "row", alignItems: "flex-start", gap: 9 }}>
-                {m.role === "ai" && (
-                  <div style={{ width: 30, height: 30, borderRadius: 9, background: "linear-gradient(135deg,#818CF8,#C4B5FD)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-                    <Brain size={13} color="#fff" />
-                  </div>
-                )}
-                <div>
-                  {m.isFollowUp && (
-                    <div style={{ fontSize: 10.5, color: "var(--t)", fontFamily: "Syne,sans-serif", fontWeight: 700, marginBottom: 4, letterSpacing: ".4px" }}>🔔 FOLLOW-UP CHECK-IN</div>
-                  )}
-                  <div className={m.role === "ai" ? "chat-ai" : "chat-user"}>
-                    {m.content.split("\n").map((line, li) => <div key={li}>{line}{li < m.content.split("\n").length - 1 ? <br /> : null}</div>)}
-                  </div>
-                  <div style={{ fontSize: 10, color: "var(--tx3)", marginTop: 4, textAlign: m.role === "user" ? "right" : "left", fontFamily: "DM Mono,monospace" }}>{m.time}</div>
-                </div>
-              </div>
-            ))}
-            {loading && (
-              <div style={{ display: "flex", gap: 9, alignItems: "flex-start", marginBottom: 12 }}>
-                <div style={{ width: 30, height: 30, borderRadius: 9, background: "linear-gradient(135deg,#818CF8,#C4B5FD)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Brain size={13} color="#fff" />
-                </div>
-                <div className="chat-ai" style={{ display: "flex", gap: 6, alignItems: "center", padding: "14px 18px" }}>
-                  {[0, 1, 2].map(i => <div key={i} className="typing-dot" style={{ animationDelay: `${i * 0.18}s` }} />)}
-                </div>
-              </div>
-            )}
+{/* Messages */}
+<div
+  ref={chatRef}
+  style={{
+    flex: 1,
+    overflowY: "auto",
+    padding: "16px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    scrollBehavior: "smooth",
+    scrollbarWidth: "none"
+  }}
+>
+  {messages.map((m, i) => (
+    <div
+      key={i}
+      style={{
+        animation: "msgIn .25s ease",
+        marginBottom: 12,
+        display: "flex",
+        justifyContent: m.role === "user" ? "flex-end" : "flex-start",
+        alignItems: "flex-start",
+        width: "100%"
+      }}
+    >
+      {/* AI Avatar */}
+      {m.role === "ai" && (
+        <div
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 9,
+            background: "linear-gradient(135deg,#818CF8,#C4B5FD)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            marginTop: 2,
+            marginRight: 9
+          }}
+        >
+          <Brain size={13} color="#fff" />
+        </div>
+      )}
+
+      {/* Message Wrapper */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: m.role === "user" ? "flex-end" : "flex-start",
+          maxWidth: "80%",
+          minWidth: m.role === "user" ? "90px" : "unset"
+        }}
+      >
+        {/* Followup */}
+        {m.isFollowUp && (
+          <div
+            style={{
+              fontSize: 10.5,
+              color: "var(--t)",
+              fontFamily: "Syne,sans-serif",
+              fontWeight: 700,
+              marginBottom: 4,
+              letterSpacing: ".4px"
+            }}
+          >
+            🔔 FOLLOW-UP CHECK-IN
           </div>
+        )}
+
+        {/* Chat Bubble */}
+        <div
+          className={m.role === "ai" ? "chat-ai" : "chat-user"}
+          style={{
+            textAlign: "left",
+            wordBreak: "break-word",
+            whiteSpace: "pre-wrap"
+          }}
+        >
+          {String(m.content || "").split("\n").map((line, li) => (
+            <div key={li}>
+              {line}
+              {li < String(m.content || "").split("\n").length - 1 ? (
+                <br />
+              ) : null}
+            </div>
+          ))}
+        </div>
+
+        {/* Time */}
+        <div
+          style={{
+            fontSize: 10,
+            color: "var(--tx3)",
+            marginTop: 4,
+            textAlign: m.role === "user" ? "right" : "left",
+            fontFamily: "DM Mono,monospace"
+          }}
+        >
+          {m.time}
+        </div>
+      </div>
+    </div>
+  ))}
+
+  {/* Loading */}
+  {loading && (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "flex-start",
+      gap: 9,
+      marginBottom: 12
+    }}
+  >
+    <div
+      style={{
+        width: 30,
+        height: 30,
+        borderRadius: 9,
+        background: "linear-gradient(135deg,#818CF8,#C4B5FD)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0
+      }}
+    >
+      <Brain size={13} color="#fff" />
+    </div>
+
+    <div
+      className="chat-ai"
+      style={{
+        display: "flex",
+        gap: 6,
+        alignItems: "center",
+        padding: "14px 18px"
+      }}
+    >
+      {[0, 1, 2].map(i => (
+        <div
+          key={i}
+          className="typing-dot"
+          style={{
+            animationDelay: `${i * 0.18}s`
+          }}
+        />
+      ))}
+    </div>
+  </div>
+)}
+
+<div ref={bottomRef} />
+</div>
 
           {/* Quick prompts — only shown before first user message, auto-hidden permanently after */}
           {showPrompts && (
@@ -1731,18 +2021,54 @@ function AIAssistantPage({ user, records, steps, screenMs, score, token }) {
           )}
 
           {/* Input */}
-          <div style={{ padding: "10px 14px 14px", display: "flex", gap: 9 }}>
-            <input className="finput" type="text"
-              placeholder={sessionLang
-                ? `Continue in ${LANG_LABELS[sessionLang] || sessionLang}...`
-                : "Type in any language — English, हिंदी, Hinglish, मराठी..."}
-              value={input} onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
-              style={{ flex: 1 }} />
-            <button className="btn-p" onClick={() => send()} disabled={!input.trim() || loading} style={{ padding: "10px 16px" }}>
-              {loading ? <Loader2 size={15} style={{ animation: "spin 1s linear infinite" }} /> : <Send size={15} />}
-            </button>
-          </div>
+<div
+  style={{
+    position: "sticky",
+    bottom: 0,
+    zIndex: 20,
+    background: "rgba(10,10,15,.92)",
+    backdropFilter: "blur(12px)",
+    borderTop: "1px solid var(--bd)",
+    padding: "10px 14px 14px",
+    display: "flex",
+    gap: 9
+  }}
+>
+  <input
+    className="finput"
+    type="text"
+    placeholder={
+      sessionLang
+        ? `Continue in ${LANG_LABELS[sessionLang] || sessionLang}...`
+        : "Type in any language — English, हिंदी, Hinglish, मराठी..."
+    }
+    value={input}
+    onChange={e => setInput(e.target.value)}
+    onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
+    style={{
+      flex: 1
+    }}
+  />
+
+  <button
+    className="btn-p"
+    onClick={() => send()}
+    disabled={!input.trim() || loading}
+    style={{
+      padding: "10px 16px",
+      flexShrink: 0
+    }}
+  >
+    {loading ? (
+      <Loader2
+        size={15}
+        style={{ animation: "spin 1s linear infinite" }}
+      />
+    ) : (
+      <Send size={15} />
+    )}
+  </button>
+</div>
         </div>
 
         {/* Right panel — health context */}
@@ -2217,24 +2543,19 @@ export default function DrAIX() {
 
   if (!user) return <AuthScreen onAuth={handleAuth} />;
 
-  const pageProps = { user, records, steps: stepTracker.steps, screenMs: screenTime.activeMs, score, weeklyData, addToast, token };
+  const pageProps = { user, records, steps: stepTracker.steps, screenMs: screenTime.activeMs, score, weeklyData, addToast, token, setPage };
 
   return (
     <div className="shell">
-      {/* Background orbs */}
-      <div className="orb" style={{ width: 600, height: 600, background: "rgba(0,245,200,.032)", top: -200, left: -150, zIndex: 0 }} />
-      <div className="orb" style={{ width: 500, height: 500, background: "rgba(129,140,248,.03)", bottom: -150, right: -100, animationDelay: "11s", zIndex: 0 }} />
-      <div className="orb" style={{ width: 350, height: 350, background: "rgba(56,189,248,.024)", top: "40%", left: "45%", animationDelay: "20s", zIndex: 0 }} />
-
       <Sidebar page={page} setPage={setPage} user={user} onLogout={handleLogout} />
 
       <div className="main">
-        <TopBar user={user} page={page} screenMs={screenTime.activeMs} steps={stepTracker.steps} score={score} addToast={addToast} />
+        <TopBar user={user} page={page} screenMs={screenTime.activeMs} steps={stepTracker.steps} score={score} addToast={addToast} onLogout={handleLogout} />
 
         <div className="page-wrap dot-bg">
           {loadingRecords && (
-            <div style={{ padding: "24px 28px" }}>
-              {[1, 2, 3].map(i => <div key={i} className="sk" style={{ height: 80, marginBottom: 12 }} />)}
+            <div style={{ padding: "24px" }}>
+              {[1, 2, 3].map(i => <div key={i} className="sk" style={{ height: 72, marginBottom: 12 }} />)}
             </div>
           )}
           {!loadingRecords && <>

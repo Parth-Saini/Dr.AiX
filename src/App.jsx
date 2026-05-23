@@ -1749,18 +1749,18 @@ const today = records[records.length - 1] || {};
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`
+    "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+    "HTTP-Referer": "https://draix.netlify.app",
+    "X-Title": "Dr.AIX"
   },
   body: JSON.stringify({
     model: "openai/gpt-3.5-turbo",
-    messages: history.map(m => ({
-      role: m.role === "ai" ? "assistant" : "user",
-      content: m.content
-    }))
+    messages: history
   })
 });
 
 const data = await res.json();
+console.log(data);
 
 const reply =
   data.choices?.[0]?.message?.content ||

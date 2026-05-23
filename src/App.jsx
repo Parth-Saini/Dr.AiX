@@ -1749,7 +1749,7 @@ const today = records[records.length - 1] || {};
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": "Bearer YOUR_OPENROUTER_API_KEY"
+    "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`
   },
   body: JSON.stringify({
     model: "openai/gpt-3.5-turbo",
